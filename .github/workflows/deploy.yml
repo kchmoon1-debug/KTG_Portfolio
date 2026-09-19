@@ -40,7 +40,9 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            fuser -k 8080/tcp || pkill -9 -f java || true
+            mkdir -p ~/KTG_Portfolio
+            fuser -k 8080/tcp || true
+            pkill -9 -f java || true
+            sleep 3
+            nohup java -Xms128m -Xmx256m -jar ~/KTG_Portfolio/*.jar > ~/KTG_Portfolio/nohup.out 2>&1 < /dev/null &
             sleep 2
-            nohup java -Xms128m -Xmx256m -jar ~/KTG_Portfolio/*.jar > ~/KTG_Portfolio/nohup.out 2>&1 &
-            disown
