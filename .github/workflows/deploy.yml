@@ -44,5 +44,4 @@ jobs:
             fuser -k 8080/tcp || true
             pkill -9 -f java || true
             sleep 2
-            nohup java -Xms64m -Xmx128m -XX:MaxMetaspaceSize=128m -jar ~/KTG_Portfolio/*.jar > ~/KTG_Portfolio/nohup.out 2>&1 &
-            sleep 1
+            systemd-run --user --unit=portfolio-app java -Xms64m -Xmx128m -XX:MaxMetaspaceSize=128m -jar /home/ubuntu/KTG_Portfolio/*.jar > /home/ubuntu/KTG_Portfolio/nohup.out 2>&1 || nohup java -Xms64m -Xmx128m -XX:MaxMetaspaceSize=128m -jar ~/KTG_Portfolio/*.jar > ~/KTG_Portfolio/nohup.out 2>&1 &
