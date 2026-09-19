@@ -29,6 +29,7 @@ jobs:
             git pull origin main
             chmod +x gradlew
             ./gradlew clean build -x test --no-daemon -Dorg.gradle.jvmargs="-Xmx256m"
-            pkill -9 -f java || true
-            nohup java -Xms128m -Xmx256m -jar build/libs/*.jar > nohup.out 2>&1 < /dev/null &
-            sleep 3
+            fuser -k 8080/tcp || pkill -9 -f java || true
+            sleep 2
+            nohup java -Xms128m -Xmx256m -jar build/libs/*.jar > /dev/null 2>&1 &
+            disown
